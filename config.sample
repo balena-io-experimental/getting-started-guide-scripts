@@ -1,0 +1,20 @@
+"""
+Config file to manage sensitive data and other configurable settings
+"""
+
+# Staging
+staging = False
+
+# Capture screenshots
+screenshots = True
+
+# Location of balenaCloud
+balena_cloud_url = "https://dashboard.balena-cloud.com/login"
+balena_cloud_staging_url = "https://dashboard.balena-staging.com/login"
+
+# Credentials
+username = "username"
+password = "password"
+
+# Exclude
+exclude = ["etcher-pro"]
