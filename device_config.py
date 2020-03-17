@@ -20,7 +20,6 @@ for device in devices:
     # Determine community supported board
     if "community" in device:
         community = True
-        # print(device["name"])
     else:
         community = False
 
@@ -34,21 +33,18 @@ for device in devices:
     else:
         instructions = ""
 
-    # try to guess the boot media
-    if "eMMC" in str(instructions):
-        bootMedia = "eMMC"
-    elif "USB" in str(instructions):
-        bootMedia = "USB key"
+    # Try to guess the boot media and override if required
+    if device["slug"] in config.boot_media_override.keys():
+        bootMedia = config.boot_media_override[device["slug"]]
     else:
-        bootMedia = "SD card"
+        if "eMMC" in str(instructions):
+            bootMedia = "eMMC"
+        elif "USB" in str(instructions):
+            bootMedia = "USB key"
+        else:
+            bootMedia = "SD card"
 
-    # try to guess the boot media
-    if "Etcher" in str(instructions):
-        etcher = True
-    else:
-        etcher = False
-
-    # exclude some boards
+    # Exclude some boards
     if device["slug"] in config.exclude:
         pass
     else:
@@ -62,8 +58,7 @@ for device in devices:
                 "machine": device["yocto"]["machine"],
                 "community": community,
                 "icon": "/img/device/" + device['slug'] + ".svg",
-                "instructions": instructions,
-                "etcher": etcher
+                "instructions": instructions
             }
     )
 
