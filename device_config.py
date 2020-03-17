@@ -42,7 +42,7 @@ for device in devices:
         elif "USB" in str(instructions):
             bootMedia = "USB key"
         else:
-            bootMedia = "SD card"
+            bootMedia = "SD card"   
 
     # Exclude some boards
     if device["slug"] in config.exclude:
@@ -54,7 +54,7 @@ for device in devices:
                 "name": str.strip(device["name"].replace('(EXPERIMENTAL)', '').replace('(DISCONTINUED)', '').replace('(NEW)', '')),
                 "arch": device["arch"],
                 "bootMedia": bootMedia,
-                "state": device["state"],
+                "state": device["state"].replace('EXPERIMENTAL', 'NEW'),
                 "machine": device["yocto"]["machine"],
                 "community": community,
                 "icon": "/img/device/" + device['slug'] + ".svg",
