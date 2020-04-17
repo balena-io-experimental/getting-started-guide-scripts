@@ -59,11 +59,13 @@ print("Closed the banner")
 # Devices are indexed from 1
 x = 1
 
+#TODO only generate the screenshots for specific devices
+
 while True:
     try:
         print("Create Application " + str(x))
 
-        # Clean exsting screenshots
+        # Clean existing screenshots
         helpers.clean_screenshots()
 
         # Click the Create Application button
