@@ -47,7 +47,7 @@ driver.find_element_by_xpath("//button[@type='submit']").click()
 driver.save_screenshot("./screenshots/steps/2-logged-in.png")
 
 # Close the modal
-driver.find_element_by_xpath("//body[@id='dashboard__applications']/div[4]/div/div/div[2]/div/div[2]/button").click()
+driver.find_element_by_xpath("(//button[@type='button'])[15]").click()
 print("Closed the modal")
 driver.save_screenshot("./screenshots/steps/3-closed-modal.png")
 
@@ -70,7 +70,7 @@ while True:
         driver.find_element_by_xpath('//button/div').click()
         driver.save_screenshot("./screenshots/steps/5-create-application.png")
 
-        # Expand the devices dropdown 
+        # Expand the devices dropdown
         # TODO determine how many devices in this list so we can loop properly and provide progress
         driver.find_element_by_xpath('//*[@id="e2e-new-app-device-type-list"]').click()
 
@@ -120,23 +120,26 @@ while True:
         driver.find_element_by_xpath("//button[contains(.,'Add device')]").click()
         driver.save_screenshot("./screenshots/steps/9-click-add-device.png")
 
-        # Expand the options on add device page
-        driver.find_element_by_css_selector(".sc-gZMcBi > .StyledBox-sc-13pk1d4-0 path").click()
-        driver.save_screenshot("./screenshots/steps/10-expand-options.png")
+        # Expand the options on add device page this doesn't always exist
+        try:
+            driver.find_element_by_xpath("//div[5]/div[2]/button/div").click()
+            driver.save_screenshot("./screenshots/steps/10-expand-options.png")
+        except Exception as e:
+            print ("Options problem, they probably don't exist for " + device_config[device])
+
 
         # Take the device screenshot
         driver.save_screenshot("./screenshots/devices/" + device_config[device] + ".png")
 
         # Close the device window
-        driver.find_element_by_css_selector(".sc-bZQynM > svg > g > path").click()
+        driver.find_element_by_css_selector(".fa-times > path").click()
         driver.save_screenshot("./screenshots/steps/11-close-device-window.png")
 
         # Delete the application
         print("Now delete the application")
 
         # Click the Actions button
-        driver.find_element_by_xpath(
-            "//body[@id='dashboard__application__devices']/div/div/dashboard/div/div/div/div/ul/li[8]/a/div/i").click()
+        driver.find_element_by_xpath("//div[@id='main-content-container']/div/div/div/ul/li[8]/a/div/i").click()
         driver.save_screenshot("./screenshots/steps/12-click-actions.png")
 
         # Click delete application button

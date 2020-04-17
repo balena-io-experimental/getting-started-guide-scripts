@@ -8,7 +8,8 @@ This WIP repo allows generating content for the Getting Started guide, including
 
 ## Screenshots
 
-To capture all screenshots for all devices, after installing dependencies) and renaming `config.sample` to `config.py` and adding in credentials, simply run:
+To capture all screenshots for all devices, after installing dependencies in a virtual environment, and renaming
+`config.sample` to `config.py` and adding in credentials, simply run:
 
 ```shell
 python3 add_application.py
@@ -40,3 +41,4 @@ This script generates the device config file for the [docs](https://github.com/b
 * Related to the above, I haven't yet found a clean way to count the devices in the dropdown, so it loops through until it hits an exception. It's currently catching a general exception, so this could be an error, or it has finished looping through devices. #TODO
 * There are a couple of lengthy `sleep` statements. I tried (unsuccessfully) to use `ExplicitWait`, and adding this would greatly improve the speed of this as currently, the wait is likely very excessive. #TODO
 * There is no way to easily generate a single image (other than to manually set the counter to the correct device). #TODO
+* Would be nice to run it in a [Docker container](https://hub.docker.com/r/joyzoursky/python-chromedriver/)

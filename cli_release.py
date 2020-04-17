@@ -20,7 +20,7 @@ driver.set_window_size(1366, 768)
 driver.get("https://github.com/balena-io/balena-cli/releases")
 
 # Close the preview
-driver.find_element_by_css_selector('.js-signup-prompt-button').click()
+driver.find_element_by_xpath('/html/body/div[4]/div/main/div[2]/div/signup-prompt-controller/div/div/button').click()
 
 # Find the latest release
 element = driver.find_element_by_class_name('label-latest')
