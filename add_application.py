@@ -3,6 +3,7 @@ Creates an application to generate screenshots for the Getting Started Guide
 """
 
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from time import sleep
 import re
 import config as cfg
@@ -47,19 +48,19 @@ driver.find_element_by_xpath("//button[@type='submit']").click()
 driver.save_screenshot("./screenshots/steps/2-logged-in.png")
 
 # Close the modal
-driver.find_element_by_xpath("(//button[@type='button'])[15]").click()
+webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
+
 print("Closed the modal")
 driver.save_screenshot("./screenshots/steps/3-closed-modal.png")
 
 # Close the banner to have a clean homepage
-driver.find_element_by_css_selector(".fa-times > path").click()
+driver.find_element_by_xpath("(//button[@type='button'])[2]").click()
+driver.find_element_by_xpath("(//button[@type='button'])[3]").click()
 driver.save_screenshot("./screenshots/steps/4-close-banner.png")
 print("Closed the banner")
 
 # Devices are indexed from 1
 x = 1
-
-#TODO only generate the screenshots for specific devices
 
 while True:
     try:
@@ -82,6 +83,15 @@ while True:
         device = re.sub(r'\([^)]*\)', '', device)
         device = device.replace(" ", "")
         print("Creating: " + device_config[device])
+
+        # Only generate screenshots for a subset of devices
+        if cfg.generate and device_config[device] not in cfg.generate:
+            # Close the modal - this closes dropdown then modal
+            for _ in range(2):
+                webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
+            driver.save_screenshot("./screenshots/steps/6a-skip-application.png")
+            x += 1
+            continue
 
         # Select the device
         driver.find_element_by_xpath(
@@ -134,7 +144,8 @@ while True:
         driver.save_screenshot("./screenshots/devices/" + device_config[device] + ".png")
 
         # Close the device window
-        driver.find_element_by_css_selector(".fa-times > path").click()
+        # webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
+        driver.find_element_by_css_selector(".eHEJhx > .svg-inline--fa").click()
         driver.save_screenshot("./screenshots/steps/11-close-device-window.png")
 
         # Delete the application

@@ -18,3 +18,6 @@ password = "password"
 
 # Exclude
 exclude = ["etcher-pro"]
+
+# Generate individual device(s) screenshots - leave empty to generate all
+generate = ["genericx86-64-ext"]
