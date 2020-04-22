@@ -53,9 +53,10 @@ webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
 print("Closed the modal")
 driver.save_screenshot("./screenshots/steps/3-closed-modal.png")
 
-# Close the banner to have a clean homepage
-driver.find_element_by_xpath("(//button[@type='button'])[2]").click()
-driver.find_element_by_xpath("(//button[@type='button'])[3]").click()
+# Close the banners to have a clean homepage
+driver.find_element_by_xpath("/html/body/div[1]/div/header/div[2]/div[1]/button").click()
+# Privacy policy update
+driver.find_element_by_xpath("/html/body/div[1]/div/header/div[2]/div/button").click()
 driver.save_screenshot("./screenshots/steps/4-close-banner.png")
 print("Closed the banner")
 
